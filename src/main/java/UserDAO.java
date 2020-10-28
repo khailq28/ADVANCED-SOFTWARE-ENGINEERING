@@ -53,16 +53,12 @@ public class UserDAO {
      */
     public void add(final User u) throws SQLException {
         final PreparedStatement stm = con.prepareStatement(
-            "insert into users(username, password, email, name, created)"
-                    + " values(?,?,?,?,?,?)");
+            "insert into users(username, password, email, name)"
+                    + " values(?,?,?,?)");
         stm.setString(1, u.getUsername());
         stm.setString(2, u.getPassword());
         stm.setString(3, u.getEmail());
         stm.setString(4, u.getName());
-        
-        DateFormat df = new SimpleDateFormat("dd-MM-yyyy");
-        Date dateobj = new Date(System.currentTimeMillis());
-        stm.setString(6, df.format(dateobj));
         stm.executeUpdate();
         stm.close();
     }

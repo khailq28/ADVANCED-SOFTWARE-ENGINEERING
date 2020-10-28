@@ -113,11 +113,20 @@ public class UserServlet extends HttpServlet {
                     response.sendRedirect("sign_up.jsp");
                     return;
                 }
-                
-                response.sendRedirect("main.jsp");
+                //insert data into db
+                final User oUser = new User();
+                oUser.setName(sName);
+                oUser.setUsername(sUsername);
+                oUser.setPassword(sPassword);
+                oUser.setEmail(sEmail);
+                dao.add(oUser);
+                session.setAttribute("successSignUp", "success");
+                response.sendRedirect("index.jsp");
                 return;
             } catch (SQLException ex) {
-                Logger.getLogger(UserServlet.class.getName()).log(Level.SEVERE, null, ex);
+                session.setAttribute("errorSignUp", "Username or email have already taken.");
+                response.sendRedirect("sign_up.jsp");
+                return;
             }
         }
         

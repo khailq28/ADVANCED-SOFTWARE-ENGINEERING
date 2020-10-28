@@ -56,8 +56,8 @@
                         <%
                             if (session.getAttribute("message") != null) {
                                 out.print("<div class='alert alert-warning alert-dismissible fade show container' role='alert'>"
-                                        + session.getAttribute("message") + 
-                                        "<button type='button' class='close' data-dismiss='alert' aria-label='Close'>"
+                                        + session.getAttribute("message")
+                                        + "<button type='button' class='close' data-dismiss='alert' aria-label='Close'>"
                                         + "<span aria-hidden='true'>&times;</span>"
                                         + "</button>"
                                         + "</div>");
@@ -127,5 +127,31 @@
         <!--===============================================================================================-->
         <script src="js/main.js"></script>
 
+        <%
+            if (session.getAttribute("successSignUp") != null) {
+                out.print("<script src='js/show_modal.js' type='text/javascript'></script>");
+            }
+        %>
+        <!--===============================================================================================-->
+        <!-- Modal -->
+        <div id="myModal" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Successfully create account</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p>Login now.</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">OK</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
     </body>
 </html>
