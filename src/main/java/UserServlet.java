@@ -120,7 +120,7 @@ public class UserServlet extends HttpServlet {
                 oUser.setPassword(sPassword);
                 oUser.setEmail(sEmail);
                 dao.add(oUser);
-                session.setAttribute("successSignUp", "success");
+                session.setAttribute("successSignUp", "Successfully create account. Login now.");
                 response.sendRedirect("index.jsp");
                 return;
             } catch (SQLException ex) {
