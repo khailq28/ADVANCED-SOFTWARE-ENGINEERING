@@ -88,7 +88,7 @@
                                 Password
                             </span>
 
-                            <a href="#" class="txt2 bo1 m-l-5">
+                            <a href="forgot.jsp" class="txt2 bo1 m-l-5">
                                 Forgot?
                             </a>
                         </div>
