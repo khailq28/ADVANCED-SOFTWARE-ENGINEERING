@@ -98,7 +98,7 @@
                                 Not a member?
                             </span>
 
-                            <a href="#" class="txt2 bo1">
+                            <a href="sign_up.jsp" class="txt2 bo1">
                                 Sign up now
                             </a>
                         </div>

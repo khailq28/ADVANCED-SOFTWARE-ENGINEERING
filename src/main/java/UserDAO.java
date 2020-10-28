@@ -53,13 +53,12 @@ public class UserDAO {
      */
     public void add(final User u) throws SQLException {
         final PreparedStatement stm = con.prepareStatement(
-            "insert into users(username, password, email, name, phone_number, created)"
+            "insert into users(username, password, email, name, created)"
                     + " values(?,?,?,?,?,?)");
         stm.setString(1, u.getUsername());
         stm.setString(2, u.getPassword());
         stm.setString(3, u.getEmail());
         stm.setString(4, u.getName());
-        stm.setString(5, u.getPhoneNumber());
         
         DateFormat df = new SimpleDateFormat("dd-MM-yyyy");
         Date dateobj = new Date(System.currentTimeMillis());
@@ -71,7 +70,7 @@ public class UserDAO {
     public List<User> getAll() throws SQLException{
         List<User> kq=new ArrayList<User>();
         stmt = con.createStatement();
-        rs = stmt.executeQuery("select id, username, password, email, name, phone_number, created from users");
+        rs = stmt.executeQuery("select id, username, password, email, name, created from users");
         while(rs.next()){
             User st = new User();
             st.setId(rs.getInt(1));
@@ -79,7 +78,6 @@ public class UserDAO {
             st.setPassword(rs.getString(3));
             st.setEmail(rs.getString(4));
             st.setName(rs.getString(5));
-            st.setPhoneNumber(rs.getString(6));
             st.setCreated(rs.getDate(7));
             kq.add(st);
         }

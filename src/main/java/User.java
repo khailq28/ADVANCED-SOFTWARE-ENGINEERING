@@ -18,7 +18,6 @@ public class User {
     private String password;
     private String email;
     private String name;
-    private String phoneNumber;
     private Date created;
 
     public String getDateString(String pattern){ // pattern="dd/MM/yyyy"
@@ -54,10 +53,6 @@ public class User {
         return name;
     }
 
-    public String getPhoneNumber() {
-        return phoneNumber;
-    }
-
     public Date getCreated() {
         return created;
     }
@@ -76,10 +71,6 @@ public class User {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
     }
 
     public void setCreated(Date created) {
