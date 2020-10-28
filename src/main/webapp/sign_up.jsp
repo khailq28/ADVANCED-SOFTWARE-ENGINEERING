@@ -39,11 +39,22 @@
             <div class="container-login100" style="background-image: url('images/bg-01.jpg');">
                 <div class="wrap-login100 p-l-110 p-r-110 p-t-62 p-b-33">
                     <form class="login100-form validate-form flex-sb flex-w"
-                          method="post">
+                          action="User" method="post">
                         <span class="login100-form-title p-b-53">
                             Create your account
                         </span>
-
+                        
+                        <%
+                            if (session.getAttribute("errorSignUp") != null) {
+                                out.print("<div class='alert alert-warning alert-dismissible fade show container' role='alert'>"
+                                        + session.getAttribute("errorSignUp") + 
+                                        "<button type='button' class='close' data-dismiss='alert' aria-label='Close'>"
+                                        + "<span aria-hidden='true'>&times;</span>"
+                                        + "</button>"
+                                        + "</div>");
+                            }
+                        %>
+                        
                         <div class="p-t-31 p-b-9">
                             <span class="txt1">
                                 Username

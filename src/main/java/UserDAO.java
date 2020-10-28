@@ -88,8 +88,8 @@ public class UserDAO {
     
     /**
      * check login
-     * @params sUsername
-     * @params sPass
+     * @param sUsername
+     * @param sPass
      * @return sName
      * @throws SQLException 
      * @author Khailq
@@ -107,5 +107,31 @@ public class UserDAO {
         rs.close();
         stmt.close();
         return sName;
+    }
+    /**
+     * validate back-end form sign up
+     * @param sUsername
+     * @param sPass
+     * @param sEmail
+     * @return sError
+     * @throws SQLException
+     * @author Khailq
+     * @created 2020/10/28
+     *
+     */
+    public String validateSignUp(String sUsername, String sPass, String sEmail) 
+            throws SQLException {
+        String sError = "";
+        if (sUsername.length() < 5 || sUsername.length() > 20) {
+            sError += "Username should be between 5-20 characters\n";
+        }
+        if (sPass.length() < 5 || sPass.length() > 20) {
+            sError += "Password should be between 5-20 characters\n";
+        }
+        String regex = "^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$";
+        if (!sEmail.matches(regex)) {
+            sError += "Please include an '@' in the email address.\n";
+        }
+        return sError;
     }
 }

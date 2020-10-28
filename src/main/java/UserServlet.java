@@ -62,33 +62,66 @@ public class UserServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        //get action
+        HttpSession session = request.getSession();
+        String sAction = request.getParameter("action");
+        if (sAction == null) {
+            return;
+        }
         /**
          * handle action login
          * @author Khailq
          * @created 2020/10/28
          *
          */
-        HttpSession session = request.getSession();
-        String sAction = request.getParameter("action");
-        if (sAction == null) {
-            return;
-        }
         if (sAction.equals("login")) {
             try {
                 UserDAO dao = new UserDAO();
                 String sUsername = request.getParameter("username");
                 String sPass = request.getParameter("pass");
                 if (dao.checkLogin(sUsername, sPass).equals("")) {
-                    response.sendRedirect("index.jsp");
                     session.setAttribute("message", "Incorrect username or password.");
+                    response.sendRedirect("index.jsp");
+                    return;
                 }else {
                     session.removeAttribute("message");
                     response.sendRedirect("main.jsp");
+                    return;
                 }
             } catch (SQLException ex) {
                 Logger.getLogger(UserServlet.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
+        /**
+         * handle action signUp
+         * @author Khailq
+         * @created 2020/10/28
+         *
+         */
+        if (sAction.equals("signUp")) {
+            try {
+                UserDAO dao = new UserDAO();
+                String sUsername = request.getParameter("username");
+                String sPassword = request.getParameter("pass");
+                String sName = request.getParameter("name");
+                String sEmail = request.getParameter("email");
+                
+                //validate back-end
+                String sValidate = dao.validateSignUp(sUsername, sPassword, sEmail);
+                if (!sValidate.equals("")) {
+                    session.setAttribute("errorSignUp", sValidate);
+                    response.sendRedirect("sign_up.jsp");
+                    return;
+                }
+                
+                response.sendRedirect("main.jsp");
+                return;
+            } catch (SQLException ex) {
+                Logger.getLogger(UserServlet.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        
+        response.sendRedirect("index.jsp");
     }
 
     /**
