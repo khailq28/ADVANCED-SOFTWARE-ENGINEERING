@@ -35,12 +35,11 @@
         <!--===============================================================================================-->
     </head>
     <body>
-
         <div class="limiter">
             <div class="container-login100" style="background-image: url('images/bg-01.jpg');">
                 <div class="wrap-login100 p-l-110 p-r-110 p-t-62 p-b-33">
                     <form class="login100-form validate-form flex-sb flex-w"
-                          action="UserServlet" method="post">
+                          action="User" method="post">
                         <span class="login100-form-title p-b-53">
                             Sign In With
                         </span>
@@ -54,7 +53,16 @@
                             <img src="images/icons/icon-google.png" alt="GOOGLE">
                             Google
                         </a>
-
+                        <%
+                            if (session.getAttribute("message") != null) {
+                                out.print("<div class='alert alert-warning alert-dismissible fade show container' role='alert'>"
+                                        + session.getAttribute("message") + 
+                                        "<button type='button' class='close' data-dismiss='alert' aria-label='Close'>"
+                                        + "<span aria-hidden='true'>&times;</span>"
+                                        + "</button>"
+                                        + "</div>");
+                            }
+                        %>
                         <div class="p-t-31 p-b-9">
                             <span class="txt1">
                                 Username
