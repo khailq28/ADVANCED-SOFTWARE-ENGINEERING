@@ -130,4 +130,23 @@ public class UserDAO {
         }
         return sError;
     }
+    /**
+     * Check if email exists in db or not 
+     * @param sEmail
+     * @return boolean
+     * @throws SQLException 
+     * @author Khailq
+     * @created 2020/10/28
+     *
+     */
+    public boolean checkEmail(String sEmail) throws SQLException {
+        stmt = con.createStatement();
+        rs = stmt.executeQuery("select * from users where email = '" + sEmail + "'");
+        if (rs.next()) {
+            return true;
+        }
+        rs.close();
+        stmt.close();
+        return false;
+    }
 }

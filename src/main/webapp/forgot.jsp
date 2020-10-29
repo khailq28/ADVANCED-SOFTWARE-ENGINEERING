@@ -50,10 +50,36 @@
                             </span>
                         </div>
                         <div class="wrap-input100 validate-input" data-validate = "Email is required">
-                            <input class="input100" type="email" name="email" >
+                            <input class="input100" type="email" name="email" id="email">
                             <span class="focus-input100"></span>
                         </div>
                        
+                        <div class="container-login100-form-btn m-t-17">
+                            <button class="login100-form-btn" type="button" id="sendMail">
+                                Send OTP to your email.
+                            </button>
+                        </div>
+                        
+                        <div class="p-t-13 p-b-9">
+                            <span class="txt1">
+                                New Password
+                            </span>
+                        </div>
+                        <div class="wrap-input100 validate-input" data-validate = "Password is required">
+                            <input class="input100" type="password" name="pass" id="form_pass">
+                            <span class="focus-input100"></span>
+                        </div>
+                        <span class="container" id="password_erorr"></span>
+                        <div class="p-t-13 p-b-9">
+                            <span class="txt1">
+                                Repeat password
+                            </span>
+                        </div>
+                        <div class="wrap-input100 validate-input" data-validate = "Password is required">
+                            <input class="input100" type="password" name="pass" id="form_repeat">
+                            <span class="focus-input100"></span>
+                        </div>
+                        <span class="container" id="repeatPass_erorr"></span>
                         <div class="container-login100-form-btn m-t-17">
                             <button class="login100-form-btn">
                                 Send password reset email.
@@ -83,5 +109,7 @@
         <script src="vendor/countdowntime/countdowntime.js"></script>
         <!--===============================================================================================-->
         <script src="js/main.js"></script>
+        <script src="js/validate.js" type="text/javascript"></script>
+        <script src="js/sendMail.js" type="text/javascript"></script>
     </body>
 </html>
