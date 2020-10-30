@@ -33,66 +33,106 @@ public class UserServlet extends HttpServlet {
         }
         /**
          * handle action login
+         *
          * @author Khailq
          * @created 2020/10/28
          *
          */
         if (sAction.equals("login")) {
-        try {
-            UserDAO dao = new UserDAO();
-            String sUsername = request.getParameter("username");
-            String sPass = request.getParameter("pass");
-            if (dao.checkLogin(sUsername, sPass).equals("")) {
-                session.setAttribute("message", "Incorrect username or password.");
-                response.sendRedirect("index.jsp");
+            try {
+                UserDAO dao = new UserDAO();
+                String sUsername = request.getParameter("username");
+                String sPass = request.getParameter("pass");
+                if (dao.checkLogin(sUsername, sPass).equals("")) {
+                    session.setAttribute("message", "Incorrect username or password.");
+                    response.sendRedirect("index.jsp");
                     return;
-                }else {
-                session.removeAttribute("message");
-                response.sendRedirect("main.jsp");
+                } else {
+                    session.removeAttribute("message");
+                    response.sendRedirect("main.jsp");
                     return;
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(UserServlet.class.getName()).log(Level.SEVERE, null, ex);
             }
-        } catch (SQLException ex) {
-            Logger.getLogger(UserServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }
-    /**
+        /**
          * handle action signUp
+         *
          * @author Khailq
          * @created 2020/10/28
-     *
-     */
+         *
+         */
         if (sAction.equals("signUp")) {
-        try {
-            UserDAO dao = new UserDAO();
-            String sUsername = request.getParameter("username");
-            String sPassword = request.getParameter("pass");
-            String sName = request.getParameter("name");
-            String sEmail = request.getParameter("email");
+            try {
+                UserDAO dao = new UserDAO();
+                String sUsername = request.getParameter("username");
+                String sPassword = request.getParameter("pass");
+                String sName = request.getParameter("name");
+                String sEmail = request.getParameter("email");
 
-            //validate back-end
-            String sValidate = dao.validateSignUp(sUsername, sPassword, sEmail);
-            if (!sValidate.equals("")) {
-                session.setAttribute("errorSignUp", sValidate);
+                //validate back-end
+                String sValidate = dao.validateSignUp(sUsername, sPassword, sEmail);
+                if (!sValidate.equals("")) {
+                    session.setAttribute("errorSignUp", sValidate);
+                    response.sendRedirect("sign_up.jsp");
+                    return;
+                }
+                //insert data into db
+                final User oUser = new User();
+                oUser.setName(sName);
+                oUser.setUsername(sUsername);
+                oUser.setPassword(sPassword);
+                oUser.setEmail(sEmail);
+                dao.add(oUser);
+                session.setAttribute("success", "Successfully create account. Login now.");
+                response.sendRedirect("index.jsp");
+                return;
+            } catch (SQLException ex) {
+                session.setAttribute("errorSignUp", "Username or email have already taken.");
                 response.sendRedirect("sign_up.jsp");
                 return;
             }
-            //insert data into db
-            final User oUser = new User();
-            oUser.setName(sName);
-            oUser.setUsername(sUsername);
-            oUser.setPassword(sPassword);
-            oUser.setEmail(sEmail);
-            dao.add(oUser);
-            session.setAttribute("successSignUp", "Successfully create account. Login now.");
-            response.sendRedirect("index.jsp");
-                return;
-        } catch (SQLException ex) {
-            session.setAttribute("errorSignUp", "Username or email have already taken.");
-            response.sendRedirect("sign_up.jsp");
-            return;
         }
-        }
+        /**
+         * handle action forgot password
+         *
+         * @author Khailq
+         * @created 2020/10/30
+         *
+         */
+        if (sAction.equals("update")) {
+            String sOtp = request.getParameter("otp");
+            String sPass = request.getParameter("pass");
+            String sRePass = request.getParameter("repeatPass");
+            String sEmail = request.getParameter("email");
 
+            try {
+                if (session.getAttribute("otp") == null) {
+                    session.setAttribute("errorupdate", "otp is not send to your email.");
+                    response.sendRedirect("forgot.jsp");
+                    return;
+                } else {
+                    if (sOtp.equals(session.getAttribute("otp"))
+                            && sPass.equals(sRePass)) {
+                        UserDAO dao = new UserDAO();
+                        dao.updatePassword(sPass, sEmail);
+                        session.setAttribute("success", "Successfully reset password. Login now.");
+                        session.removeAttribute("otp");
+                        response.sendRedirect("index.jsp");
+                        return;
+                    } else {
+                        session.setAttribute("errorupdate", "otp is not correct.");
+                        response.sendRedirect("forgot.jsp");
+                        return;
+                    }
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(UserServlet.class.getName()).log(Level.SEVERE, null, ex);
+                session.setAttribute("success", ex);
+            }
+
+        }
         response.sendRedirect("index.jsp");
     }
 

@@ -33,6 +33,19 @@
         <link rel="stylesheet" type="text/css" href="css/util.css">
         <link rel="stylesheet" type="text/css" href="css/main.css">
         <!--===============================================================================================-->
+        <style>
+            /* Chrome, Safari, Edge, Opera */
+            input::-webkit-outer-spin-button,
+            input::-webkit-inner-spin-button {
+                -webkit-appearance: none;
+                margin: 0;
+            }
+
+            /* Firefox */
+            input[type=number] {
+                -moz-appearance: textfield;
+            }
+        </style>
     </head>
     <body>
         <div class="limiter">
@@ -44,6 +57,18 @@
                             Reset your password
                         </span>
 
+                        <%
+                            if (session.getAttribute("errorupdate") != null) {
+                                out.print("<div class='alert alert-warning alert-dismissible fade show container' role='alert'>"
+                                        + session.getAttribute("errorupdate") + 
+                                        "<button type='button' class='close' data-dismiss='alert' aria-label='Close'>"
+                                        + "<span aria-hidden='true'>&times;</span>"
+                                        + "</button>"
+                                        + "</div>");
+                                session.removeAttribute("errorupdate");
+                            }
+                        %>
+                        
                         <div class="p-t-13 p-b-9">
                             <span class="txt1">
                                 Email
@@ -53,13 +78,25 @@
                             <input class="input100" type="email" name="email" id="email">
                             <span class="focus-input100"></span>
                         </div>
-                       
+
                         <div class="container-login100-form-btn m-t-17">
                             <button class="login100-form-btn" type="button" id="sendMail">
                                 Send OTP to your email.
                             </button>
                         </div>
-                        
+
+                        <div class="p-t-13 p-b-9">
+                            <span class="txt1">
+                                OTP
+                            </span>
+                        </div>
+                        <div class="wrap-input100 validate-input" data-validate = "OTP is required">
+                            <input class="input100" name="otp" id="otp" type="number"
+                                   pattern="/^-?\d+\.?\d*$/" onKeyPress="if (this.value.length == 6)
+                                               return false;" />
+                            <span class="focus-input100"></span>
+                        </div>
+
                         <div class="p-t-13 p-b-9">
                             <span class="txt1">
                                 New Password
@@ -76,10 +113,12 @@
                             </span>
                         </div>
                         <div class="wrap-input100 validate-input" data-validate = "Password is required">
-                            <input class="input100" type="password" name="pass" id="form_repeat">
+                            <input class="input100" type="password" name="repeatPass" id="form_repeat">
                             <span class="focus-input100"></span>
                         </div>
                         <span class="container" id="repeatPass_erorr"></span>
+                        
+                        <input type="hidden" name="action" value="update">
                         <div class="container-login100-form-btn m-t-17">
                             <button class="login100-form-btn">
                                 Send password reset email.

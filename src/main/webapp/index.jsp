@@ -63,9 +63,9 @@
                                         + "</div>");
                                 session.removeAttribute("message");
                             }
-                            if (session.getAttribute("successSignUp") != null) {
+                            if (session.getAttribute("success") != null) {
                                 out.print("<div class='alert alert-warning alert-dismissible fade show container' role='alert'>"
-                                        + session.getAttribute("successSignUp")
+                                        + session.getAttribute("success")
                                         + "<button type='button' class='close' data-dismiss='alert' aria-label='Close'>"
                                         + "<span aria-hidden='true'>&times;</span>"
                                         + "</button>"

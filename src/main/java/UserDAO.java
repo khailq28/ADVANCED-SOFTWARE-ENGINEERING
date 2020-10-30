@@ -62,26 +62,6 @@ public class UserDAO {
         stm.executeUpdate();
         stm.close();
     }
-    
-    public List<User> getAll() throws SQLException{
-        List<User> kq=new ArrayList<User>();
-        stmt = con.createStatement();
-        rs = stmt.executeQuery("select id, username, password, email, name, created from users");
-        while(rs.next()){
-            User st = new User();
-            st.setId(rs.getInt(1));
-            st.setUsername(rs.getString(2));
-            st.setPassword(rs.getString(3));
-            st.setEmail(rs.getString(4));
-            st.setName(rs.getString(5));
-            st.setCreated(rs.getDate(7));
-            kq.add(st);
-        }
-        rs.close();
-        stmt.close();
-        return kq;
-    }
-    
     /**
      * check login
      * @param sUsername
@@ -148,5 +128,21 @@ public class UserDAO {
         rs.close();
         stmt.close();
         return false;
+    }
+    /**
+     *
+     * @param sPass
+     * @param sEmail
+     * @throws SQLException
+     * @author Khailq
+     * @created 2020/10/30
+     *
+     */
+    public void updatePassword(String sPass, String sEmail) throws SQLException {
+        final PreparedStatement stm = con.prepareStatement(
+            "update users set password = '" + sPass + "'"
+                    + "where email = '" + sEmail + "'");
+        stm.executeUpdate();
+        stm.close();
     }
 }
