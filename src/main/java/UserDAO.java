@@ -72,17 +72,18 @@ public class UserDAO {
      * @created 2020/10/28
      *
      */
-    public String checkLogin(String sUsername, String sPass) throws SQLException {
+    public User checkLogin(String sUsername, String sPass) throws SQLException {
         stmt = con.createStatement();
         rs = stmt.executeQuery("select name from users where username = '" + sUsername + 
                 "' and password = '" + sPass + "'");
+        User u = new User();
         String sName = "";
         while (rs.next()) {
-            sName = rs.getString(1);
+            u.setName(rs.getString(1));
         }
         rs.close();
         stmt.close();
-        return sName;
+        return u;
     }
     /**
      * validate back-end form sign up
