@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 /**
@@ -41,18 +42,21 @@ public class MainServlet extends HttpServlet {
         UserDAO dao = new UserDAO();
         User oUser = dao.getInfoById((int) session.getAttribute("id"));
         
+//        JSONArray a = dao.getTopUser();
+
         JSONObject obj = new JSONObject();
         obj.put("name", oUser.getName());
         obj.put("coin", oUser.getCoin());
         obj.put("exp", oUser.getExp());
         obj.put("lv", oUser.getLv());
         
+        obj.put("TopUser", dao.getTopUser());
         //return json into ajax
         try ( PrintWriter writer = response.getWriter()) {
             writer.append(obj.toString());
         }
     }
-
+    
     /**
      * Handles the HTTP <code>POST</code> method. handles event ajax in main
      * layout
@@ -69,6 +73,7 @@ public class MainServlet extends HttpServlet {
         if (sAction == null) {
             return;
         }
+        //get my info
         if (sAction.equals("userInfo")) {
             try {
                 getUserInfo(request, response);

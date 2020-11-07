@@ -13,10 +13,35 @@ $(document).ready(function () {
         },
         dataType: "json",
         success: function (aData) {
+            console.log(aData);
+            console.log(aData.TopUser[0].name);
+            let sHtmlRanking = `<li class="titleRank">Ranking list</li>`;
+            for(let i = 1; i <= 7; i++) {
+                let sClass = "userRank" + i;
+                let j = i - 1;
+                sHtmlRanking += `
+                    <li class="userRank `+ sClass +`">
+                        <table>
+                            <tbody>
+                                <tr>
+                                    <td style="1%"><div class="numRank">`+ i +`</div></td>
+                                    <td style="width: 40px"><div class="avatar"></div></td>
+                                    <td>
+                                        <div class="infoUser">
+                                            <div class="name">`+ aData.TopUser[j].name +`</div>
+                                            <div class="money">`+ aData.TopUser[j].coin +`</div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </li>`;
+            }
             let sHtmlName = `<strong>Name: </strong>` + aData.name;
             let sHtmlCoin = `<strong>Coin: </strong>` + aData.coin;
-            $(".name").html(sHtmlName);
-            $(".money").html(sHtmlCoin);
+            $("#rankingList").html(sHtmlRanking);
+            $("#myname").html(sHtmlName);
+            $("#mymoney").html(sHtmlCoin);
         },
         error: function () {
             alert("error");

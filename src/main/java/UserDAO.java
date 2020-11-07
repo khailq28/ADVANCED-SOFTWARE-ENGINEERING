@@ -1,28 +1,25 @@
 
 import java.sql.*;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 /**
  *
  * @author khai
  */
 public class UserDAO {
+
     Connection con;
     Statement stmt;
     ResultSet rs;
-    
+
     static {
         try {
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
@@ -30,21 +27,23 @@ public class UserDAO {
             Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
     /**
      * connect DB
+     *
      * @throws SQLException
      * @author Khailq
      * @created 2020/10/27
      *
      */
-    public UserDAO() throws SQLException  {
+    public UserDAO() throws SQLException {
         con = DriverManager.getConnection(
-            "jdbc:sqlserver://localhost;databaseName=gameCard;","sa","12345678");
+                "jdbc:sqlserver://localhost;databaseName=gameCard;", "sa", "12345678");
     }
-    
+
     /**
      * add user
+     *
      * @param u
      * @throws SQLException
      * @author Khailq
@@ -53,8 +52,8 @@ public class UserDAO {
      */
     public void add(final User u) throws SQLException {
         final PreparedStatement stm = con.prepareStatement(
-            "insert into users(username, password, email, name)"
-                    + " values(?,?,?,?)");
+                "insert into users(username, password, email, name)"
+                + " values(?,?,?,?)");
         stm.setString(1, u.getUsername());
         stm.setString(2, u.getPassword());
         stm.setString(3, u.getEmail());
@@ -62,20 +61,22 @@ public class UserDAO {
         stm.executeUpdate();
         stm.close();
     }
+
     /**
      * check login
+     *
      * @param sUsername
      * @param sPass
      * @return iId
-     * @throws SQLException 
+     * @throws SQLException
      * @author Khailq
      * @created 2020/10/28
      *
      */
     public int checkLogin(String sUsername, String sPass) throws SQLException {
         stmt = con.createStatement();
-        rs = stmt.executeQuery("select id from users where username = '" + sUsername + 
-                "' and password = '" + sPass + "'");
+        rs = stmt.executeQuery("select id from users where username = '" + sUsername
+                + "' and password = '" + sPass + "'");
         int iId = 0;
         while (rs.next()) {
             iId = rs.getInt(1);
@@ -84,8 +85,10 @@ public class UserDAO {
         stmt.close();
         return iId;
     }
+
     /**
      * validate back-end form sign up
+     *
      * @param sUsername
      * @param sPass
      * @param sEmail
@@ -95,7 +98,7 @@ public class UserDAO {
      * @created 2020/10/28
      *
      */
-    public String validateSignUp(String sUsername, String sPass, String sEmail) 
+    public String validateSignUp(String sUsername, String sPass, String sEmail)
             throws SQLException {
         String sError = "";
         if (sUsername.length() < 5 || sUsername.length() > 20) {
@@ -110,11 +113,13 @@ public class UserDAO {
         }
         return sError;
     }
+
     /**
-     * Check if email exists in db or not 
+     * Check if email exists in db or not
+     *
      * @param sEmail
      * @return boolean
-     * @throws SQLException 
+     * @throws SQLException
      * @author Khailq
      * @created 2020/10/28
      *
@@ -129,6 +134,7 @@ public class UserDAO {
         stmt.close();
         return false;
     }
+
     /**
      *
      * @param sPass
@@ -140,16 +146,17 @@ public class UserDAO {
      */
     public void updatePassword(String sPass, String sEmail) throws SQLException {
         final PreparedStatement stm = con.prepareStatement(
-            "update users set password = '" + sPass + "'"
-                    + "where email = '" + sEmail + "'");
+                "update users set password = '" + sPass + "'"
+                + "where email = '" + sEmail + "'");
         stm.executeUpdate();
         stm.close();
     }
-    
+
     /**
      * get info by id
+     *
      * @param iId
-     * @return b
+     * @return oUser
      * @throws SQLException
      * @author Khailq
      * @created 2020/11/02
@@ -168,5 +175,33 @@ public class UserDAO {
         rs.close();
         stmt.close();
         return oUser;
+    }
+
+    /**
+     * get top 7 user with the highest amount of money
+     *
+     * @author Khailq
+     * @return JSONArray
+     * @throws java.sql.SQLException
+     * @created 2020/11/07
+     *
+     */
+    public JSONArray getTopUser() throws SQLException {
+        stmt = con.createStatement();
+//        rs = stmt.executeQuery(
+//                "SELECT TOP(7) name, coin"
+//                + "FROM users"
+//                + "ORDER BY coin DESC");
+        rs = stmt.executeQuery("select top(7) name, coin from users ORDER BY coin DESC");
+        JSONArray jarray = new JSONArray();
+        while (rs.next()) {
+            JSONObject oUser = new JSONObject();
+            oUser.put("name", rs.getString(1));
+            oUser.put("coin", rs.getInt(2));
+            jarray.put(oUser);
+        }
+        rs.close();
+        stmt.close();
+        return jarray;
     }
 }

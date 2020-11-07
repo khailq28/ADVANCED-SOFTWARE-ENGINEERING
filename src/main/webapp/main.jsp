@@ -26,26 +26,8 @@
             <table>
                 <tr>
                     <td style="width: 40%">
-                        <ul>
-                            <li class="titleRank">Ranking list</li>
-                                <%                                for (int i = 1; i < 6; i++) {
-                                        String sClass = "userRank" + i;
-                                        out.print("<li class='userRank " + sClass + "'>");
-                                        out.print("<table>"
-                                                + "<tr>"
-                                                + "<td style='1%'><div class='numRank'>" + i + "</div></td>"
-                                                + "<td style='width: 40px'><div class='avatar'></div></td>"
-                                                + "<td>"
-                                                + "<div class='infoUser'>"
-                                                + "<div class='name'>Name</div>"
-                                                + "<div class='money'>100k</div"
-                                                + "</div>"
-                                                + "</td>"
-                                                + "</tr>"
-                                                + "</table>");
-                                        out.print("</li>");
-                                    }
-                                %>
+                        <ul id="rankingList">
+                           
                         </ul>
                     </td>
                     <td></td>
@@ -56,9 +38,9 @@
 
                         <div style="text-align: center; width: 100%; margin-top: 10px">
                             <div class="frameMyInfo">
-                                <div class="avatar"></div>
-                                <div class="name"></div>
-                                <div class="money"></div>
+                                <div class="avatar" id=""></div>
+                                <div class="name" id="myname"></div>
+                                <div class="money" id="mymoney"></div>
                                 <div class="btnActionBar">
                                     <i class="fa fa-info-circle"></i> &nbsp;
                                     <i class="fa fa-user-circle"></i> &nbsp;
