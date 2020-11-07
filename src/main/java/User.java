@@ -19,6 +19,33 @@ public class User {
     private String email;
     private String name;
     private Date created;
+    private int coin;
+    private int lv;
+
+    public void setLv(int lv) {
+        this.lv = lv;
+    }
+
+    public int getLv() {
+        return lv;
+    }
+    private int exp;
+
+    public void setCoin(int coin) {
+        this.coin = coin;
+    }
+
+    public void setExp(int exp) {
+        this.exp = exp;
+    }
+
+    public int getCoin() {
+        return coin;
+    }
+
+    public int getExp() {
+        return exp;
+    }
 
     public String getDateString(String pattern){ // pattern="dd/MM/yyyy"
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);

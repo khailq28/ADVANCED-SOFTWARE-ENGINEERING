@@ -66,24 +66,23 @@ public class UserDAO {
      * check login
      * @param sUsername
      * @param sPass
-     * @return sName
+     * @return iId
      * @throws SQLException 
      * @author Khailq
      * @created 2020/10/28
      *
      */
-    public User checkLogin(String sUsername, String sPass) throws SQLException {
+    public int checkLogin(String sUsername, String sPass) throws SQLException {
         stmt = con.createStatement();
-        rs = stmt.executeQuery("select name from users where username = '" + sUsername + 
+        rs = stmt.executeQuery("select id from users where username = '" + sUsername + 
                 "' and password = '" + sPass + "'");
-        User u = new User();
-        String sName = "";
+        int iId = 0;
         while (rs.next()) {
-            u.setName(rs.getString(1));
+            iId = rs.getInt(1);
         }
         rs.close();
         stmt.close();
-        return u;
+        return iId;
     }
     /**
      * validate back-end form sign up
@@ -145,5 +144,29 @@ public class UserDAO {
                     + "where email = '" + sEmail + "'");
         stm.executeUpdate();
         stm.close();
+    }
+    
+    /**
+     * get info by id
+     * @param iId
+     * @return b
+     * @throws SQLException
+     * @author Khailq
+     * @created 2020/11/02
+     *
+     */
+    public User getInfoById(int iId) throws SQLException {
+        stmt = con.createStatement();
+        rs = stmt.executeQuery("select name, coin, exp, lv from users where id = '" + iId + "'");
+        User oUser = new User();
+        if (rs.next()) {
+            oUser.setName(rs.getString(1));
+            oUser.setCoin(rs.getInt(2));
+            oUser.setExp(rs.getInt(3));
+            oUser.setExp(rs.getInt(4));
+        }
+        rs.close();
+        stmt.close();
+        return oUser;
     }
 }

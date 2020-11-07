@@ -43,8 +43,7 @@ public class UserServlet extends HttpServlet {
                 UserDAO dao = new UserDAO();
                 String sUsername = request.getParameter("username");
                 String sPass = request.getParameter("pass");
-                User u = dao.checkLogin(sUsername, sPass);
-                if (u.getName() == null) {
+                if (dao.checkLogin(sUsername, sPass) == 0) {
                     session.setAttribute("message", "Incorrect username or password.");
                     session.setAttribute("login", "false");
                     response.sendRedirect("index.jsp");
@@ -52,7 +51,7 @@ public class UserServlet extends HttpServlet {
                 } else {
                     session.removeAttribute("message");
                     session.setAttribute("login", "true");
-                    session.setAttribute("name", u.getName());
+                    session.setAttribute("id", dao.checkLogin(sUsername, sPass));
                     response.sendRedirect("main.jsp");
                     return;
                 }
@@ -135,13 +134,13 @@ public class UserServlet extends HttpServlet {
                 Logger.getLogger(UserServlet.class.getName()).log(Level.SEVERE, null, ex);
                 session.setAttribute("success", ex);
             }
-
         }
         response.sendRedirect("index.jsp");
     }
 
     /**
      * action log out
+     *
      * @param request
      * @param response
      * @throws ServletException
@@ -150,7 +149,6 @@ public class UserServlet extends HttpServlet {
      * @created 2020/11/02
      *
      */
-    
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -158,6 +156,7 @@ public class UserServlet extends HttpServlet {
         session.setAttribute("login", "false");
         response.sendRedirect("index.jsp");
     }
+
     /**
      * Returns a short description of the servlet.
      *

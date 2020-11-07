@@ -10,6 +10,7 @@
     <head>
         <title>Forgot your password?</title>
         <meta charset="UTF-8">
+        <link href="css/loadingPrg.css" rel="stylesheet" type="text/css"/>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <!--===============================================================================================-->	
         <link rel="icon" type="image/png" href="images/icons/favicon.ico"/>
@@ -48,6 +49,10 @@
         </style>
     </head>
     <body>
+        <div id="loading" style="display: none;">
+            <i class="fa fa-spinner fa-3x fa-spin"></i>
+        </div>
+
         <div class="limiter">
             <div class="container-login100" style="background-image: url('images/bg01.jpg');">
                 <div class="wrap-login100 p-l-110 p-r-110 p-t-62 p-b-33">
@@ -60,15 +65,15 @@
                         <%
                             if (session.getAttribute("errorupdate") != null) {
                                 out.print("<div class='alert alert-warning alert-dismissible fade show container' role='alert'>"
-                                        + session.getAttribute("errorupdate") + 
-                                        "<button type='button' class='close' data-dismiss='alert' aria-label='Close'>"
+                                        + session.getAttribute("errorupdate")
+                                        + "<button type='button' class='close' data-dismiss='alert' aria-label='Close'>"
                                         + "<span aria-hidden='true'>&times;</span>"
                                         + "</button>"
                                         + "</div>");
                                 session.removeAttribute("errorupdate");
                             }
                         %>
-                        
+
                         <div class="p-t-13 p-b-9">
                             <span class="txt1">
                                 Email
@@ -117,7 +122,7 @@
                             <span class="focus-input100"></span>
                         </div>
                         <span class="container" id="repeatPass_erorr"></span>
-                        
+
                         <input type="hidden" name="action" value="update">
                         <div class="container-login100-form-btn m-t-17">
                             <button class="login100-form-btn">
@@ -149,6 +154,6 @@
         <!--===============================================================================================-->
         <script src="js/main.js"></script>
         <script src="js/validate.js" type="text/javascript"></script>
-        <script src="js/sendMail.js" type="text/javascript"></script>
+        <script src="js/sendEmail.js" type="text/javascript"></script>
     </body>
 </html>

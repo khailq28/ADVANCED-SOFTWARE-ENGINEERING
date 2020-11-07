@@ -12,48 +12,53 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Game bài tiến lên</title>
-        <link rel="stylesheet" type="text/css" href="css/home.css"/>
+        <link rel="stylesheet" type="text/css" href="css/homePage.css"/>
+        <link href="css/loadingPrg.css" rel="stylesheet" type="text/css"/>
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     </head>
     <body>
+        <div id="loading" style="display: none;">
+            <i class="fa fa-spinner fa-3x fa-spin"></i>
+        </div>  
+        
         <div class="frameHomePage">
             <table>
                 <tr>
                     <td style="width: 40%">
                         <ul>
                             <li class="titleRank">Ranking list</li>
-                            <%
-                                for(int i = 1; i < 6; i++) {
-                                    String sClass = "userRank" + i;
-                                    out.print("<li class='userRank "+sClass+"'>");
-                                    out.print("<table>"
+                                <%                                for (int i = 1; i < 6; i++) {
+                                        String sClass = "userRank" + i;
+                                        out.print("<li class='userRank " + sClass + "'>");
+                                        out.print("<table>"
                                                 + "<tr>"
-                                                    + "<td style='1%'><div class='numRank'>"+i+"</div></td>"
-                                                    + "<td style='width: 40px'><div class='avatar'></div></td>"
-                                                    + "<td>"
-                                                        + "<div class='infoUser'>"
-                                                            + "<div class='name'>Name</div>"
-                                                            + "<div class='money'>100k</div"
-                                                        + "</div>"
-                                                    + "</td>"
+                                                + "<td style='1%'><div class='numRank'>" + i + "</div></td>"
+                                                + "<td style='width: 40px'><div class='avatar'></div></td>"
+                                                + "<td>"
+                                                + "<div class='infoUser'>"
+                                                + "<div class='name'>Name</div>"
+                                                + "<div class='money'>100k</div"
+                                                + "</div>"
+                                                + "</td>"
                                                 + "</tr>"
-                                            + "</table>");
-                                    out.print("</li>");
-                                }
-                            %>
+                                                + "</table>");
+                                        out.print("</li>");
+                                    }
+                                %>
                         </ul>
                     </td>
                     <td></td>
                     <td style="width: 35%; text-align: right; padding-right: 40px">
-                        <button class="btn btnActionHome play">PLAY NOW</button>
+                        <button class="btn btnActionHome play" id="play">PLAY NOW</button>
                         <br>
                         <button class="btn btnActionHome room">FIND ROOM</button>
-                        
+
                         <div style="text-align: center; width: 100%; margin-top: 10px">
                             <div class="frameMyInfo">
                                 <div class="avatar"></div>
-                                <div class="name"><strong>Name: </strong><%= session.getAttribute("name") %></div>
-                                <div class="money"><strong>Coin: </strong>100</div>
+                                <div class="name"></div>
+                                <div class="money"></div>
                                 <div class="btnActionBar">
                                     <i class="fa fa-info-circle"></i> &nbsp;
                                     <i class="fa fa-user-circle"></i> &nbsp;
@@ -69,5 +74,6 @@
                 </tr>
             </table>
         </div>
+        <script src="js/homePage.js"></script>
     </body>
 </html>
