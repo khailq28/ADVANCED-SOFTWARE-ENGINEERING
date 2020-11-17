@@ -45,12 +45,12 @@ public class UserServlet extends HttpServlet {
                 String sPass = request.getParameter("pass");
                 if (dao.checkLogin(sUsername, sPass) == 0) {
                     session.setAttribute("message", "Incorrect username or password.");
-                    session.setAttribute("login", "false");
+//                    session.setAttribute("login" + dao.checkLogin(sUsername, sPass), "false");
                     response.sendRedirect("index.jsp");
                     return;
                 } else {
                     session.removeAttribute("message");
-                    session.setAttribute("login", "true");
+                    session.setAttribute("login" + dao.checkLogin(sUsername, sPass), "true");
                     session.setAttribute("id", dao.checkLogin(sUsername, sPass));
                     response.sendRedirect("main.jsp");
                     return;
@@ -153,7 +153,7 @@ public class UserServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         HttpSession session = request.getSession();
-        session.setAttribute("login", "false");
+        session.removeAttribute("login" + session.getAttribute("id"));
         response.sendRedirect("index.jsp");
     }
 

@@ -164,13 +164,14 @@ public class UserDAO {
      */
     public User getInfoById(int iId) throws SQLException {
         stmt = con.createStatement();
-        rs = stmt.executeQuery("select name, coin, exp, lv from users where id = '" + iId + "'");
+        rs = stmt.executeQuery("select name, coin, exp, lv, username from users where id = '" + iId + "'");
         User oUser = new User();
         if (rs.next()) {
             oUser.setName(rs.getString(1));
             oUser.setCoin(rs.getInt(2));
             oUser.setExp(rs.getInt(3));
-            oUser.setExp(rs.getInt(4));
+            oUser.setLv(rs.getInt(4));
+            oUser.setUsername(rs.getString(5));
         }
         rs.close();
         stmt.close();

@@ -15,7 +15,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import org.json.JSONArray;
 import org.json.JSONObject;
 
 /**
@@ -49,6 +48,10 @@ public class MainServlet extends HttpServlet {
         obj.put("coin", oUser.getCoin());
         obj.put("exp", oUser.getExp());
         obj.put("lv", oUser.getLv());
+        obj.put("username", oUser.getUsername());
+        
+        //used in room.jsp
+        session.setAttribute("name", oUser.getName());
         
         obj.put("TopUser", dao.getTopUser());
         //return json into ajax

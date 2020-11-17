@@ -1,0 +1,44 @@
+
+import com.google.gson.Gson;
+import java.util.logging.Logger;
+import javax.websocket.DecodeException;
+import javax.websocket.Decoder;
+import javax.websocket.EndpointConfig;
+
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+/**
+ *
+ * @author khai
+ */
+public class MessageDecoder implements Decoder.Text<Message> {
+    private final Logger log = Logger.getLogger(getClass().getName());
+
+    @Override
+    public Message decode(String s) throws DecodeException {
+        log.info("incoming message : " + s);
+
+        Gson gson = new Gson();
+        Message message = gson.fromJson(s, Message.class);
+        return message;
+    }
+
+    @Override
+    public boolean willDecode(String s) {
+        return (s != null);
+    }
+
+    @Override
+    public void init(EndpointConfig endpointConfig) {
+        // do nothing
+    }
+
+    @Override
+    public void destroy() {
+        // do nothing
+    }
+}

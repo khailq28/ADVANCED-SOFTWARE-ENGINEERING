@@ -41,7 +41,7 @@ $(document).ready(function () {
                 <div class="container">
                     <div class="row">
                         <div class="col-md-4">
-                            <img src="./images/bg02.jpg" style="width: 130px; height: 130px; border: 5px solid orange;">
+                            <img src="/home/khai/Working/2020/ChuyenDeCNPM/Final/gameCard/target/gameCard-1.0-SNAPSHOT/avatar/download.png" style="width: 130px; height: 130px; border: 5px solid orange;">
                         </div>
                         <div class="col-md-8">
                             <h4>` + aData.name + `</h4>
@@ -51,9 +51,9 @@ $(document).ready(function () {
                                 <b>Lv: </b>` + aData.lv + `<br>
                                 <b>Exp: </b>` + aData.exp + `<br>
                             </p>
-                            <form action="UploadServlet" mothod="POST">
+                            <form action="UploadServlet" method="post" enctype="multipart/form-data" >
                                 <b>Change avatar:</b>
-                                <input type="file" style="overflow: hidden;" id="image">
+                                <input type="file" style="overflow: hidden;" name="file">
                                 <br>
                                 <div style="text-align: right; padding: 10px">
                                     <input type="submit" value="Save changes"

@@ -11,8 +11,8 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Game bài tiến lên</title>
-        <link rel="stylesheet" type="text/css" href="css/home.css"/>
+        <title>Black Jack</title>
+        <link rel="stylesheet" type="text/css" href="css/mainpage.css"/>
         <link rel="stylesheet" type="text/css" href="css/loadingPrg.css"/>
 
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
@@ -37,7 +37,7 @@
                     </td>
                     <td></td>
                     <td style="width: 35%; text-align: right; padding-right: 40px">
-                        <button class="btn btnActionHome play" id="play">PLAY NOW</button>
+                        <a href="/gameCard/room.jsp" class="btn btnActionHome play" id="play">PLAY NOW</a>
                         <br>
                         <button class="btn btnActionHome room">FIND ROOM</button>
 
@@ -81,6 +81,6 @@
                 </div>
             </div>
         </div>
-        <script src="js/home.js"></script>
+        <script src="js/mainpage.js"></script>
     </body>
 </html>
