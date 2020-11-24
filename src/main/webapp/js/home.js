@@ -27,7 +27,7 @@ $(document).ready(function () {
                                     <td>
                                         <div class="infoUser">
                                             <div class="name">` + aData.TopUser[j].name + `</div>
-                                            <div class="money">` + aData.TopUser[j].coin + `</div>
+                                            <div class="money">Coin: ` + aData.TopUser[j].coin + ` - Lv: `+ aData.TopUser[j].lv +`</div>
                                         </div>
                                     </td>
                                 </tr>
@@ -37,6 +37,8 @@ $(document).ready(function () {
             }
             let sHtmlName = `<strong>Name: </strong>` + aData.name;
             let sHtmlCoin = `<strong>Coin: </strong>` + aData.coin;
+            let sHtmlLv = `<strong>Lv: </strong>` + aData.lv;
+            let sHtmlExp = `<strong>Exp: </strong>` + aData.exp;
             let sHtmlModalContent = `
                 <div class="container">
                     <div class="row">
@@ -66,6 +68,8 @@ $(document).ready(function () {
             $("#rankingList").html(sHtmlRanking);
             $("#myname").html(sHtmlName);
             $("#mymoney").html(sHtmlCoin);
+            $("#mylv").html(sHtmlLv);
+            $("#myexp").html(sHtmlExp);
             $("#modal-content").html(sHtmlModalContent);
         },
         error: function () {

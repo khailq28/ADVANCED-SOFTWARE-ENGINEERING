@@ -12,7 +12,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Black Jack</title>
-        <link rel="stylesheet" type="text/css" href="css/mainPage.css"/>
+        <link rel="stylesheet" type="text/css" href="css/home.css"/>
         <link rel="stylesheet" type="text/css" href="css/loadingPrg.css"/>
 
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
@@ -46,6 +46,8 @@
                                 <div class="avatar" id=""></div>
                                 <div class="name" id="myname"></div>
                                 <div class="money" id="mymoney"></div>
+                                <div class="lv" id="mylv"></div>
+                                <div class="exp" id="myexp"></div>
                                 <div class="btnActionBar">
                                     <i class="fa fa-info-circle"></i> &nbsp;
                                     <a data-toggle="modal" data-target="#exampleModal"
@@ -81,6 +83,6 @@
                 </div>
             </div>
         </div>
-        <script src="js/mainpage.js"></script>
+        <script src="js/home.js"></script>
     </body>
 </html>
