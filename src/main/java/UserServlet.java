@@ -45,7 +45,6 @@ public class UserServlet extends HttpServlet {
                 String sPass = request.getParameter("pass");
                 if (dao.checkLogin(sUsername, sPass) == 0) {
                     session.setAttribute("message", "Incorrect username or password.");
-//                    session.setAttribute("login" + dao.checkLogin(sUsername, sPass), "false");
                     response.sendRedirect("index.jsp");
                     return;
                 } else {

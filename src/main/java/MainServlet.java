@@ -26,6 +26,7 @@ public class MainServlet extends HttpServlet {
 
     /**
      * get user info by id and send it into ajax (dataType: json)
+     *
      * @author Khailq
      * @param request
      * @param response
@@ -40,19 +41,18 @@ public class MainServlet extends HttpServlet {
         HttpSession session = request.getSession();
         UserDAO dao = new UserDAO();
         User oUser = dao.getInfoById((int) session.getAttribute("id"));
-        
-//        JSONArray a = dao.getTopUser();
 
+//        JSONArray a = dao.getTopUser();
         JSONObject obj = new JSONObject();
         obj.put("name", oUser.getName());
         obj.put("coin", oUser.getCoin());
         obj.put("exp", oUser.getExp());
         obj.put("lv", oUser.getLv());
         obj.put("username", oUser.getUsername());
-        
+
         //used in room.jsp
         session.setAttribute("name", oUser.getName());
-        
+
         obj.put("TopUser", dao.getTopUser());
         //return json into ajax
         try ( PrintWriter writer = response.getWriter()) {
@@ -76,10 +76,31 @@ public class MainServlet extends HttpServlet {
         if (sAction == null) {
             return;
         }
-        //get my info
+        //get my info and top rank
         if (sAction.equals("userInfo")) {
             try {
                 getUserInfo(request, response);
+            } catch (SQLException ex) {
+                Logger.getLogger(MainServlet.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        //get info user
+        if (sAction.equals("uifInGame")) {
+            try {
+                HttpSession session = request.getSession();
+                UserDAO dao = new UserDAO();
+                User oUser = dao.getInfoById((int) session.getAttribute("id"));
+
+                JSONObject obj = new JSONObject();
+                obj.put("name", oUser.getName());
+                obj.put("coin", oUser.getCoin());
+                obj.put("exp", oUser.getExp());
+                obj.put("lv", oUser.getLv());
+                obj.put("username", oUser.getUsername());
+                //return json into ajax
+                try ( PrintWriter writer = response.getWriter()) {
+                    writer.append(obj.toString());
+                }
             } catch (SQLException ex) {
                 Logger.getLogger(MainServlet.class.getName()).log(Level.SEVERE, null, ex);
             }

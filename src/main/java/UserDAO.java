@@ -189,10 +189,6 @@ public class UserDAO {
      */
     public JSONArray getTopUser() throws SQLException {
         stmt = con.createStatement();
-//        rs = stmt.executeQuery(
-//                "SELECT TOP(7) name, coin"
-//                + "FROM users"
-//                + "ORDER BY coin DESC");
         rs = stmt.executeQuery("select top(7) name, coin from users ORDER BY coin DESC");
         JSONArray jarray = new JSONArray();
         while (rs.next()) {
@@ -204,5 +200,106 @@ public class UserDAO {
         rs.close();
         stmt.close();
         return jarray;
+    }
+
+    /**
+     * change coin when finish game
+     *
+     * @author Khailq
+     * @param iUserId
+     * @param iCoin
+     * @throws java.sql.SQLException
+     * @created 2020/11/24
+     *
+     */
+    public void changeCoin(int iUserId, int iCoin, String sWhoWon) throws SQLException {
+        if (sWhoWon.equals("Computer")) {
+            final PreparedStatement stm = con.prepareStatement(
+                    "UPDATE users SET coin = "
+                    + "(SELECT coin FROM users WHERE id = " + iUserId + ") - " + iCoin
+                    + "where id = " + iUserId);
+            stm.executeUpdate();
+            stm.close();
+        } else if (sWhoWon.equals("Player")) {
+            final PreparedStatement stm = con.prepareStatement(
+                    "UPDATE users SET coin = "
+                    + "(SELECT coin FROM users WHERE id = " + iUserId + ") + " + iCoin
+                    + "where id = " + iUserId);
+            stm.executeUpdate();
+            stm.close();
+        }
+    }
+
+    /**
+     * increase exp
+     *
+     * @author Khailq
+     * @param iUserId
+     * @param sWhoWon
+     * @throws java.sql.SQLException
+     * @created 2020/11/24
+     *
+     */
+    public void increaseExp(int iUserId, String sWhoWon) throws SQLException {
+        if (sWhoWon.equals("Computer")) {
+            final PreparedStatement stm = con.prepareStatement(
+                    "UPDATE users SET exp = "
+                    + "(SELECT exp FROM users WHERE id = " + iUserId + ") + " + 15
+                    + "where id = " + iUserId);
+            stm.executeUpdate();
+            stm.close();
+        } else if (sWhoWon.equals("Player")) {
+            final PreparedStatement stm = con.prepareStatement(
+                    "UPDATE users SET exp = "
+                    + "(SELECT exp FROM users WHERE id = " + iUserId + ") + " + 25
+                    + "where id = " + iUserId);
+            stm.executeUpdate();
+            stm.close();
+        }
+        increaseLv(iUserId, getExpById(iUserId));
+    }
+
+    /**
+     * increase lv when exp >= 100
+     *
+     * @author Khailq
+     * @param iUserId
+     * @param iExp
+     * @throws java.sql.SQLException
+     * @created 2020/11/24
+     *
+     */
+    public void increaseLv(int iUserId, int iExp) throws SQLException {
+        if (iExp >= 100) {
+            final PreparedStatement stm = con.prepareStatement(
+                    "update users "
+                    + "set lv = (select lv from users where id = " + iUserId + ") + 2, "
+                    + "exp = (select exp from users where id = " + iUserId + ") - 100 "
+                    + "where id = " + iUserId);
+            stm.executeUpdate();
+            stm.close();
+        }
+    }
+
+    /**
+     * get lv by userId
+     *
+     * @author Khailq
+     * @param iUserId
+     * @return
+     * @throws java.sql.SQLException
+     * @created 2020/11/24
+     *
+     */
+    public int getExpById(int iUserId) throws SQLException {
+        int sLv = 0;
+        stmt = con.createStatement();
+        rs = stmt.executeQuery("select exp from users where id = " + iUserId);
+        if (rs.next()) {
+            sLv = rs.getInt(1);
+        }
+        rs.close();
+        stmt.close();
+        return sLv;
     }
 }

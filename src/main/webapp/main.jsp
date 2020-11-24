@@ -12,7 +12,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Black Jack</title>
-        <link rel="stylesheet" type="text/css" href="css/mainpage.css"/>
+        <link rel="stylesheet" type="text/css" href="css/mainPage.css"/>
         <link rel="stylesheet" type="text/css" href="css/loadingPrg.css"/>
 
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
@@ -37,9 +37,9 @@
                     </td>
                     <td></td>
                     <td style="width: 35%; text-align: right; padding-right: 40px">
-                        <a href="/gameCard/room.jsp" class="btn btnActionHome play" id="play">PLAY NOW</a>
+                        <a href="/gameCard/room.jsp" class="btn btnActionHome play" id="play">PLAY</a>
                         <br>
-                        <button class="btn btnActionHome room">FIND ROOM</button>
+                        <a href="playWithComputer.jsp" class="btn btnActionHome room">PLAY WITH COMPUTER</a>
 
                         <div style="text-align: center; width: 100%; margin-top: 10px">
                             <div class="frameMyInfo">
