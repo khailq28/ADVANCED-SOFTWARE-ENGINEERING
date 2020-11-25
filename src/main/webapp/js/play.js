@@ -8,6 +8,8 @@ const GAME_VALUE = 21;
 const specialCardValues = {'J': 10, 'K': 10, 'Q': 10, 'A1': 1, 'A2': 11};
 let iUserCoin = 0;
 let iBetAmount = 0;
+let iNumComCard = 0;
+let aComCards = [];
 
 //make sure the document loads before the main is run.
 document.addEventListener('DOMContentLoaded', main);
@@ -149,10 +151,9 @@ function handlePlay(event) {
         addCard(playerCardContainer, "player", card);
         showPlayerScore();
         if (currentPlayerScore > GAME_VALUE) {
-            computerCards[0].style.backgroundImage = "none";
-            computerCards[0].style.color = "black";
-            computerCards[1].style.backgroundImage = "none";
-            computerCards[1].style.color = "black";
+            for (let i = 0; i < iNumComCard; i++) {
+                computerCards[i].style.backgroundImage = "url('"+ aComCards[i] +"')";
+            }
             showComputerScore();
             showResult("Computer");
             handleButtonsOnGameEnd();
@@ -189,10 +190,9 @@ function handlePlay(event) {
         else if (currentComputerScore === currentPlayerScore)
             showResult("tie");
         showComputerScore();
-        computerCards[0].style.backgroundImage = "none";
-        computerCards[0].style.color = "black";
-        computerCards[1].style.backgroundImage = "none";
-        computerCards[1].style.color = "black";
+        for (let i = 0; i < iNumComCard; i++) {
+            computerCards[i].style.backgroundImage = "url('"+ aComCards[i] +"')";
+        }
         handleButtonsOnGameEnd();
     });
     // handler for the restart button
@@ -247,7 +247,8 @@ function addCard(containerName, turn, card) {
     if (turn === 'computer') {
         const cardDiv = document.createElement('div');
         cardDiv.classList.add('card');
-        cardDiv.textContent = card.face + "  " + card.suit;
+        aComCards.push("images/deck/" + card.face + card.suit + ".png");
+        iNumComCard++;
         containerName.appendChild(cardDiv);
         //check if the card has special faces such as: J, K, Q or A
         if (card.face === 'J' || card.face === 'K' || card.face === 'Q')
@@ -262,7 +263,10 @@ function addCard(containerName, turn, card) {
     } else if (turn === 'player') {
         const cardDiv = document.createElement('div');
         cardDiv.classList.add('card');
-        cardDiv.textContent = card.face + "  " + card.suit;
+        cardDiv.style.backgroundImage = "url('images/deck/" + card.face + card.suit + ".png')";
+        cardDiv.style.backgroundPosition = "center";
+        cardDiv.style.color = "transparent";
+        cardDiv.classList.add('covered-card');
         containerName.appendChild(cardDiv);
         //check if the card has special faces such as: J, K, Q or A
         if (card.face === 'J' || card.face === 'K' || card.face === 'Q')
@@ -282,8 +286,7 @@ function showResult(whoWon) {
     if (whoWon !== 'tie') {
         bet(whoWon);
         result.textContent = whoWon + " has won!!!";
-    }
-    else
+    } else
         result.textContent = "It's a tie!!!";
 }
 

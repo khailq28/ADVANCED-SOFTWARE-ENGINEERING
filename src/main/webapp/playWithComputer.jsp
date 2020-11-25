@@ -11,13 +11,13 @@
 <html>
     <head>
         <title>Black Jack</title>
-        <link rel="stylesheet" href="css/roomGame.css" type="text/css" media="screen" title="no title" charset="utf-8">
+        <link rel="stylesheet" href="css/playGame.css" type="text/css" media="screen" title="no title" charset="utf-8">
         <link href="https://fonts.googleapis.com/css?family=Bad+Script|Courgette|Dancing+Script|Kalam|Marck+Script" rel="stylesheet">
         <meta charset="utf-8" />
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     </head>
     <body>
-        <script src="js/playGame.js"></script>
+        <script src="js/play.js"></script>
         <div class="start">
             <table>
                 <tr>

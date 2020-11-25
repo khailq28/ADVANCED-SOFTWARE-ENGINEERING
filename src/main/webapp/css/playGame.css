@@ -82,8 +82,8 @@ div {
 
 .card {
     text-align: left;
-    width: 6em;
-    height: 8em;
+    width: 8em;
+    height: 9.5em;
     display: inline-block;
     border: 0.5px solid black;
     border-radius: 10px;
@@ -94,19 +94,12 @@ div {
     margin-left: -50px;
     transition: margin-left;
     transition-duration: 1s;
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 
 .card:hover {
     margin-left: 0;
-}
-
-.leftmost-card {
-    transition: margin-right;
-    transition-duration: 1s;
-}
-
-.leftmost-card:hover {
-    margin-right: 60px;
 }
 
 .result {
@@ -119,13 +112,13 @@ div {
 /* Chrome, Safari, Edge, Opera */
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
+    -webkit-appearance: none;
+    margin: 0;
 }
 
 /* Firefox */
 input[type=number] {
-  -moz-appearance: textfield;
+    -moz-appearance: textfield;
 }
 
 #bet {
