@@ -35,17 +35,24 @@ public class BetServlet extends HttpServlet {
             throws ServletException, IOException, SQLException {
         response.setContentType("text/html;charset=UTF-8");
         HttpSession session = request.getSession();
-        
-        String sWhoWon = request.getParameter("whoWon");
-        int iCoin = Integer.parseInt(request.getParameter("betAmount"));
-        
-        int iUserId = (int) session.getAttribute("id");
-        
         UserDAO dao = new UserDAO();
-        dao.changeCoin(iUserId, iCoin, sWhoWon);
-        dao.increaseExp(iUserId, sWhoWon);
+        String sAction = request.getParameter("action");
+        int iUserId = (int) session.getAttribute("id");
+        String sWhoWon = request.getParameter("whoWon");
+
+        if (sAction.equals("blackjack")) {
+            int iCoin = Integer.parseInt(request.getParameter("betAmount"));
+
+            dao.changeCoin(iUserId, iCoin, sWhoWon);
+            dao.increaseExp(iUserId, sWhoWon);
+        }
+        
+        if (sAction.equals("minigame")) {
+            int iCoin = 50;
+            dao.changeCoin(iUserId, iCoin, sWhoWon);
+        }
     }
-    
+
     /**
      * Handles the HTTP <code>POST</code> method.
      *

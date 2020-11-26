@@ -13,7 +13,7 @@
             MINIGAME
         </title>
         <meta charset="utf-8">
-        <link rel="stylesheet" href="css/minigame.css"> <!-- Chỉnh đường dẫn dùm :) -->
+        <link rel="stylesheet" href="css/mini_game.css"> <!-- Chỉnh đường dẫn dùm :) -->
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" type="text/css" href="css/loadingPrg.css"/>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">	
@@ -44,9 +44,8 @@
 
             </div>
             <div id="result">
-
             </div>
         </div>
     </body>
-    <script src="js/minigame.js"></script>
+    <script src="js/mini_game.js"></script>
 </html>

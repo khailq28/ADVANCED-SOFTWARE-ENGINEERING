@@ -7,7 +7,6 @@
 var myCards = document.getElementById('container');
 var resultsArray = [];
 var counter = 0;
-var text = document.getElementById('text');
 var seconds = 00;
 var tens = 00;
 var appendTens = document.getElementById("tens");
@@ -86,7 +85,30 @@ var win = function () {
 
     if (counter === 5) {
         clearInterval(Interval);
-        text.innerHTML = "Your time was " + seconds + ":" + tens;
+        $.ajax({
+            url: "/gameCard/BetServlet",
+            method: "POST",
+            data: {
+                action: "minigame",
+                whoWon: "Player"
+            },
+            dataType: "text",
+            success: function () {
+                let sHtml = `
+                <p style="color: yellow; font-size: 2em">you have received 50 coins</p>
+                <button class="startover" style="display: inline-block;" onclick="document.location.reload(true)">Restart Game</button>`;
+                $("#result").html(sHtml);
+            },
+            error: function () {
+                alert("error");
+            },
+            beforeSend: function () {
+                $("#loading").css("display", "inline");
+            },
+            complete: function () {
+                $("#loading").css("display", "none");
+            }
+        });
     }
 
 }

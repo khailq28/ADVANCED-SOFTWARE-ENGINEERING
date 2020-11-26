@@ -169,8 +169,9 @@ function handlePlay(event) {
         //trường hợp score > 21 hoặc số lá bài trên tay là 5
         if (currentPlayerScore > GAME_VALUE || iNumPlayerCard === 5) {
             //máy được xì bàng/xì dách -> máy thắng 
-            if (checkBlackJack("computer") === 1 || checkBlackJack("computer") === 2) {
-                showResult("Computer");
+            if (iNumPlayerCard === 2) {
+                if (checkBlackJack("computer") === 1 || checkBlackJack("computer") === 2)
+                    showResult("Computer");
             } else {
                 const computerStandScore = 18;
                 while (currentComputerScore <= computerStandScore - 1) {
@@ -209,9 +210,13 @@ function handlePlay(event) {
                                 showResult("tie");
                             }
                         }
-                    }
+                    } else
+                        showResult("Computer");
                 } else {
-                    showResult("tie");
+                    if (currentPlayerScore <= GAME_VALUE) {
+                        showResult("Player");
+                    } else
+                        showResult("tie");
                 }
             }
             showComputerScore();
@@ -232,60 +237,55 @@ function handlePlay(event) {
      the game.
      */
     standButton.addEventListener('click', function () {
-        //player đc xì bàng
-        if (checkBlackJack("player") === 1) {
-            if (checkBlackJack("computer") === 1) {
-                showResult("tie");
-            }
-            showResult("Player");
-            showComputerScore();
-            showPlayerScore();
-            for (let i = 0; i < iNumComCard; i++) {
-                computerCards[i].style.backgroundImage = "url('" + aComCardImage[i] + "')";
-            }
-            handleButtonsOnGameEnd();
-        } else if (checkBlackJack("player") === 2) {    //player đc xì dách
-            if (checkBlackJack("computer") === 2) {
-                showResult("tie");
-            }
-            showResult("Player");
-            showComputerScore();
-            showPlayerScore();
-            for (let i = 0; i < iNumComCard; i++) {
-                computerCards[i].style.backgroundImage = "url('" + aComCardImage[i] + "')";
-            }
-            handleButtonsOnGameEnd();
-        } else if (currentPlayerScore >= 16) { //player score >= 16
-            const computerStandScore = 18;
-            while (currentComputerScore <= computerStandScore - 1 || iNumComCard === 5) {
-                if (iNumComCard === 5)
-                    break;
-                const card = dealCard(deck);
-                addCard(computerCardContainer, "computer", card);
-            }
-            if (iNumComCard === 5 && currentComputerScore <= GAME_VALUE) {
-                showResult("Computer");
-                // check all the cases to determine who's the winner
-            } else if (currentComputerScore >= computerStandScore && currentComputerScore <= GAME_VALUE) {
-                if (currentPlayerScore <= GAME_VALUE) {
-                    //trường hợp bình thường 
-                    if (currentComputerScore > currentPlayerScore) {
-                        showResult("Computer");
-                    } else if (currentComputerScore < currentPlayerScore) {
-                        showResult("Player");
-                    } else {
-                        showResult("tie");
-                    }
+        if (currentPlayerScore >= 16) { //player score >= 16
+            //player đc xì bàng
+            if (checkBlackJack("player") === 1 && iNumPlayerCard === 2) {
+                if (checkBlackJack("computer") === 1) {
+                    showResult("tie");
                 }
-            } else
-                showResult("tie");
-            showResult("Player");
-            showComputerScore();
-            showPlayerScore();
-            for (let i = 0; i < iNumComCard; i++) {
-                computerCards[i].style.backgroundImage = "url('" + aComCardImage[i] + "')";
+                showResult("Player");
+            } else if (checkBlackJack("player") === 2 && iNumPlayerCard === 2) {    //player đc xì dách
+                if (checkBlackJack("computer") === 2) {
+                    showResult("tie");
+                }
+                showResult("Player");
+            } else {
+                const computerStandScore = 18;
+                while (currentComputerScore <= computerStandScore - 1 || iNumComCard === 5) {
+                    if (iNumComCard === 5)
+                        break;
+                    const card = dealCard(deck);
+                    addCard(computerCardContainer, "computer", card);
+                }
+                if (iNumComCard === 5 && currentComputerScore <= GAME_VALUE) {
+                    showResult("Computer");
+                    // check all the cases to determine who's the winner
+                } else if (currentComputerScore >= computerStandScore && currentComputerScore <= GAME_VALUE) {
+                    if (currentPlayerScore <= GAME_VALUE) {
+                        //trường hợp bình thường 
+                        if (currentComputerScore > currentPlayerScore) {
+                            showResult("Computer");
+                        } else if (currentComputerScore < currentPlayerScore) {
+                            showResult("Player");
+                        } else {
+                            showResult("tie");
+                        }
+                    } else {
+                        showResult("Computer");
+                    }
+                } else {
+                    if (currentPlayerScore <= GAME_VALUE) {
+                        showResult("Player");
+                    } else
+                        showResult("tie");
+                }   
+                showComputerScore();
+                showPlayerScore();
+                for (let i = 0; i < iNumComCard; i++) {
+                    computerCards[i].style.backgroundImage = "url('" + aComCardImage[i] + "')";
+                }
+                handleButtonsOnGameEnd();
             }
-            handleButtonsOnGameEnd();
         } else {
             alert("Your score must be above 16");
         }
@@ -305,7 +305,7 @@ function handlePlay(event) {
 function checkBlackJack(sWho) {
     let iAA = 0;
     let iBlackjack = 0;
-    if (sWho == 'player') {
+    if (sWho == 'player' && iNumPlayerCard === 2) {
         for (let i = 0; i < aValPlayerCards.length; i++) {
             if (aValPlayerCards[i] === 'J'
                     || aValPlayerCards[i] === 'Q'
@@ -317,7 +317,7 @@ function checkBlackJack(sWho) {
         }
     }
 
-    if (sWho == 'computer') {
+    if (sWho == 'computer' && iNumComCard === 2) {
         for (let i = 0; i < aValComCards.length; i++) {
             if (aValComCards[i] === 'J'
                     || aValComCards[i] === 'Q'
@@ -399,21 +399,27 @@ function dealCard(deck) {
 
 function showComputerScore() {
     const target = document.getElementById('computer-score');
-    if (checkBlackJack("computer") === 1)
-        target.textContent = "AA";
-    else if (checkBlackJack("computer") === 2)
-        target.textContent = "Black jack";
-    else
+    if (iNumComCard === 2) {
+        if (checkBlackJack("computer") === 1)
+            target.textContent = "AA";
+        else if (checkBlackJack("computer") === 2)
+            target.textContent = "Black jack";
+        else
+            target.textContent = currentComputerScore;
+    } else
         target.textContent = currentComputerScore;
 }
 
 function showPlayerScore() {
     const target = document.getElementById('player-score');
-    if (checkBlackJack("player") === 1)
-        target.textContent = "AA";
-    else if (checkBlackJack("player") === 2)
-        target.textContent = "Black jack";
-    else
+    if (iNumPlayerCard === 2) {
+        if (checkBlackJack("player") === 1)
+            target.textContent = "AA";
+        else if (checkBlackJack("player") === 2)
+            target.textContent = "Black jack";
+        else
+            target.textContent = currentPlayerScore;
+    } else
         target.textContent = currentPlayerScore;
 }
 
@@ -492,8 +498,10 @@ function showResult(whoWon) {
     if (whoWon !== 'tie') {
         bet(whoWon);
         result.textContent = whoWon + " has won!!!";
-    } else
+    } else {
+        bet("Player");
         result.textContent = "It's a tie!!!";
+    }
 }
 
 function bet(whoWon) {
@@ -504,6 +512,7 @@ function bet(whoWon) {
         url: "/gameCard/BetServlet",
         method: "POST",
         data: {
+            action: "blackjack",
             betAmount: iBet,
             whoWon: whoWon
         },
