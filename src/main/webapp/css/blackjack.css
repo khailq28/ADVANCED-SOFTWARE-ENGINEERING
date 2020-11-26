@@ -81,12 +81,11 @@ div {
 }
 
 .card {
-    text-align: left;
     width: 8em;
-    height: 9.5em;
+    height: 10em;
     display: inline-block;
-    border: 0.5px solid black;
-    border-radius: 10px;
+    border: solid 1px #d3cece;
+    border-radius: 5px;
     font-size: 1.3em;
     background-color: white;
     padding-left: 10px;
@@ -96,6 +95,7 @@ div {
     transition-duration: 1s;
     background-repeat: no-repeat;
     background-size: cover;
+
 }
 
 .card:hover {
@@ -127,5 +127,5 @@ input[type=number] {
     font-size: 4em;
     text-align: right;
     padding: 5px;
-    width: 71%;
+    width: 65%;
 }

@@ -37,9 +37,9 @@
                     </td>
                     <td></td>
                     <td style="width: 35%; text-align: right; padding-right: 40px">
-                        <a href="/gameCard/room.jsp" class="btn btnActionHome play" id="play">PLAY</a>
+                        <a href="blackjack.jsp" class="btn btnActionHome play" id="play">PLAY</a>
                         <br>
-                        <a href="playWithComputer.jsp" class="btn btnActionHome room">PLAY WITH COMPUTER</a>
+                        <a href="minigame.jsp" class="btn btnActionHome room">MINIGAME</a>
 
                         <div style="text-align: center; width: 100%; margin-top: 10px">
                             <div class="frameMyInfo">
