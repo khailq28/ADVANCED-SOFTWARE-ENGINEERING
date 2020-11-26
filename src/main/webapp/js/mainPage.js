@@ -14,7 +14,7 @@ $(document).ready(function () {
         dataType: "json",
         success: function (aData) {
             let sHtmlRanking = `<li class="titleRank">Ranking list</li>`;
-            for (let i = 1; i <= 7; i++) {
+            for (let i = 1; i <= 6; i++) {
                 let sClass = "userRank" + i;
                 let j = i - 1;
                 sHtmlRanking += `

@@ -14,11 +14,12 @@ and open the template in the editor.
 }
 
 .frameHomePage .titleRank {
-    font-size: 25px;
+    font-size: 2.5em;
     font-weight: bold;
     background-image: linear-gradient(-90deg, #550000, #DD0000);
     text-align: center;
     padding: 25px;
+    font-family: 'Dancing Script', cursive;
 }
 
 .frameHomePage ul {
@@ -170,4 +171,12 @@ html {
     -moz-background-size: cover;
     -o-background-size: cover;
     background-size: cover;
+}
+
+#blackjack {
+    color: yellow;
+    font-family: 'Dancing Script', cursive;
+    font-size: 5em;
+    text-align: center;
+    font-weight: bold;
 }

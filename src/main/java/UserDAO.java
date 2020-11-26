@@ -189,7 +189,7 @@ public class UserDAO {
      */
     public JSONArray getTopUser() throws SQLException {
         stmt = con.createStatement();
-        rs = stmt.executeQuery("select top(7) name, coin, lv from users ORDER BY coin DESC");
+        rs = stmt.executeQuery("select top(6) name, coin, lv from users ORDER BY coin DESC");
         JSONArray jarray = new JSONArray();
         while (rs.next()) {
             JSONObject oUser = new JSONObject();
