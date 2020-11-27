@@ -164,7 +164,7 @@ public class UserDAO {
      */
     public User getInfoById(int iId) throws SQLException {
         stmt = con.createStatement();
-        rs = stmt.executeQuery("select name, coin, exp, lv, username from users where id = '" + iId + "'");
+        rs = stmt.executeQuery("select name, coin, exp, lv, username, giftdate from users where id = '" + iId + "'");
         User oUser = new User();
         if (rs.next()) {
             oUser.setName(rs.getString(1));
@@ -172,6 +172,7 @@ public class UserDAO {
             oUser.setExp(rs.getInt(3));
             oUser.setLv(rs.getInt(4));
             oUser.setUsername(rs.getString(5));
+            oUser.setGiftdate(rs.getString(6));
         }
         rs.close();
         stmt.close();
@@ -303,5 +304,12 @@ public class UserDAO {
         rs.close();
         stmt.close();
         return sLv;
+    }
+
+    public void changeGiftDate(int iUserId, String sDate) throws SQLException {
+        final PreparedStatement stm = con.prepareStatement(
+                "update users set giftdate = '"+ sDate +"' where id = " + iUserId);
+        stm.executeUpdate();
+        stm.close();
     }
 }

@@ -21,6 +21,15 @@ public class User {
     private Date created;
     private int coin;
     private int lv;
+    private String giftdate;
+    
+    public String getGiftdate() {
+        return giftdate;
+    }
+
+    public void setGiftdate(String giftdate) {
+        this.giftdate = giftdate;
+    }
 
     public void setLv(int lv) {
         this.lv = lv;

@@ -13,6 +13,7 @@ $(document).ready(function () {
         },
         dataType: "json",
         success: function (aData) {
+            console.log(aData);
             let sHtmlRanking = `<li class="titleRank">Ranking list</li>`;
             for (let i = 1; i <= 6; i++) {
                 let sClass = "userRank" + i;
@@ -27,7 +28,7 @@ $(document).ready(function () {
                                     <td>
                                         <div class="infoUser">
                                             <div class="name">` + aData.TopUser[j].name + `</div>
-                                            <div class="money">Coin: ` + aData.TopUser[j].coin + ` - Lv: `+ aData.TopUser[j].lv +`</div>
+                                            <div class="money">Coin: ` + aData.TopUser[j].coin + ` - Lv: ` + aData.TopUser[j].lv + `</div>
                                         </div>
                                     </td>
                                 </tr>
@@ -71,6 +72,38 @@ $(document).ready(function () {
             $("#mylv").html(sHtmlLv);
             $("#myexp").html(sHtmlExp);
             $("#modal-content").html(sHtmlModalContent);
+
+            if (aData.giftdate) {
+                let sHtmlGift = `<img id="received" src="images/gift.png">`;
+                $("#gift").html(sHtmlGift);
+
+                $("#received").click(function () {
+                    $.ajax({
+                        url: "/gameCard/MainServlet",
+                        method: "POST",
+                        data: {
+                            action: "received",
+                            lv: aData.lv
+                        },
+                        dataType: "json",
+                        success: function (aData) {
+                            if (aData.status) {
+                                location.reload(true);
+                                alert("You received " + aData.coinReceived + " coins.");
+                            }
+                        },
+                        error: function () {
+                            alert("error");
+                        },
+                        beforeSend: function () {
+                            $("#loading").css("display", "inline");
+                        },
+                        complete: function () {
+                            $("#loading").css("display", "none");
+                        }
+                    });
+                });
+            }
         },
         error: function () {
             alert("error");

@@ -12,7 +12,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Black Jack</title>
-        <link rel="stylesheet" type="text/css" href="css/mainPage.css"/>
+        <link rel="stylesheet" type="text/css" href="css/home.css"/>
         <link rel="stylesheet" type="text/css" href="css/loadingPrg.css"/>
         <link href="https://fonts.googleapis.com/css?family=Bad+Script|Courgette|Dancing+Script|Kalam|Marck+Script" rel="stylesheet">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
@@ -36,7 +36,7 @@
 
                         </ul>
                     </td>
-                    <td></td>
+                    <td id="gift"></td>
                     <td style="width: 35%; text-align: right; padding-right: 40px">
                         <a href="blackjack.jsp" class="btn btnActionHome play" id="play">PLAY</a>
                         <br>
@@ -84,6 +84,6 @@
                 </div>
             </div>
         </div>
-        <script src="js/mainPage.js"></script>
+        <script src="js/home.js"></script>
     </body>
 </html>

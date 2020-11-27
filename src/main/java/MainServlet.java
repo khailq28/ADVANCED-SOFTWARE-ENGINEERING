@@ -7,6 +7,9 @@
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -50,6 +53,18 @@ public class MainServlet extends HttpServlet {
         obj.put("lv", oUser.getLv());
         obj.put("username", oUser.getUsername());
 
+        //check gift everyday
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+        Date dt = new Date();
+
+        obj.put("gift", oUser.getGiftdate());
+        obj.put("now", df.format(dt));
+        
+        if (oUser.getGiftdate().equals(df.format(dt))) {
+            obj.put("giftdate", false);
+        } else {
+            obj.put("giftdate", true);
+        }
         //used in room.jsp
         session.setAttribute("name", oUser.getName());
 
@@ -59,7 +74,7 @@ public class MainServlet extends HttpServlet {
             writer.append(obj.toString());
         }
     }
-    
+
     /**
      * Handles the HTTP <code>POST</code> method. handles event ajax in main
      * layout
@@ -97,6 +112,39 @@ public class MainServlet extends HttpServlet {
                 obj.put("exp", oUser.getExp());
                 obj.put("lv", oUser.getLv());
                 obj.put("username", oUser.getUsername());
+                //return json into ajax
+                try ( PrintWriter writer = response.getWriter()) {
+                    writer.append(obj.toString());
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(MainServlet.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        //receive gift
+        if (sAction.equals("received")) {
+            try {
+                HttpSession session = request.getSession();
+                UserDAO dao = new UserDAO();
+
+                DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+                Date dt = new Date();
+
+                int iLv = Integer.parseInt(request.getParameter("lv"));
+                int iUserId = (int) session.getAttribute("id");
+                String sDate = df.format(dt);
+                int iCoin = 0;
+                
+                dao.changeGiftDate(iUserId, sDate);
+                //icrease coin
+                if (iLv >= 0 && iLv < 10) iCoin = 100;
+                else if (iLv >= 10 && iLv < 20) iCoin = 300;
+                else if (iLv >= 20 && iLv < 40) iCoin = 500;
+                else if (iLv >= 40 && iLv <= 60) iCoin = 700;
+                else iCoin = 1000;
+                dao.changeCoin(iUserId, iCoin, "Player");
+                JSONObject obj = new JSONObject();
+                obj.put("status", true);
+                obj.put("coinReceived", iCoin);
                 //return json into ajax
                 try ( PrintWriter writer = response.getWriter()) {
                     writer.append(obj.toString());
