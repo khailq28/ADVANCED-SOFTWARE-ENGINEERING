@@ -45,11 +45,11 @@ public class UserServlet extends HttpServlet {
                 String sPass = request.getParameter("pass");
                 if (dao.checkLogin(sUsername, sPass) == 0) {
                     session.setAttribute("message", "Incorrect username or password.");
-                    response.sendRedirect("index.jsp");
+                    response.sendRedirect("/gameCard");
                     return;
                 } else {
                     session.removeAttribute("message");
-                    session.setAttribute("login" + dao.checkLogin(sUsername, sPass), "true");
+                    session.setAttribute("login", "true");
                     session.setAttribute("id", dao.checkLogin(sUsername, sPass));
                     response.sendRedirect("main.jsp");
                     return;
@@ -88,7 +88,7 @@ public class UserServlet extends HttpServlet {
                 oUser.setEmail(sEmail);
                 dao.add(oUser);
                 session.setAttribute("success", "Successfully create account. Login now.");
-                response.sendRedirect("index.jsp");
+                response.sendRedirect("/gameCard");
                 return;
             } catch (SQLException ex) {
                 session.setAttribute("errorSignUp", "Username or email have already taken.");
@@ -121,7 +121,7 @@ public class UserServlet extends HttpServlet {
                         dao.updatePassword(sPass, sEmail);
                         session.setAttribute("success", "Successfully reset password. Login now.");
                         session.removeAttribute("otp");
-                        response.sendRedirect("index.jsp");
+                        response.sendRedirect("/gameCard");
                         return;
                     } else {
                         session.setAttribute("errorupdate", "otp is not correct.");
@@ -134,7 +134,7 @@ public class UserServlet extends HttpServlet {
                 session.setAttribute("success", ex);
             }
         }
-        response.sendRedirect("index.jsp");
+        response.sendRedirect("/gameCard");
     }
 
     /**
@@ -152,8 +152,8 @@ public class UserServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         HttpSession session = request.getSession();
-        session.removeAttribute("login" + session.getAttribute("id"));
-        response.sendRedirect("index.jsp");
+        session.removeAttribute("login");
+        response.sendRedirect("/gameCard");
     }
 
     /**
