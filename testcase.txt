@@ -1,0 +1,11 @@
+Nhập dãy số bạn muốn vào ô Start value:
+máy	 - người chơi
+xì bàng  - xì bàng	: A,A,A,A
+xì bàng  - xì dách	: A,10,A,A
+xì bàng  - ngũ linh	: A,2,A,4,5,6,2,3
+xì dách  - xì bàng	: A,A,10,A
+xì dách  - xì dách	: A,10,J,A
+xì dách  - ngũ linh	: A,2,Q,4,5,6,2,3
+ngũ linh - xì bàng	: 2,A,4,A,5,6,2,3
+ngũ linh - xì dách	: 2,A,4,K,5,6,2,3
+ngũ lình - ngũ linh	: 2,3,4,4,5,6,2,3,5,2 hoặc 3,2,4,4,3,5,2,5,2,6
