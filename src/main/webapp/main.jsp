@@ -50,7 +50,10 @@
                                 <div class="lv" id="mylv"></div>
                                 <div class="exp" id="myexp"></div>
                                 <div class="btnActionBar">
-                                    <i class="fa fa-info-circle"></i> &nbsp;
+                                    <a data-toggle="modal" data-target="#exampleModal2"
+                                        id="gameInfo" style="cursor: -webkit-grabbing; cursor: grabbing;">
+                                        <i class="fa fa-info-circle"></i>
+                                    </a> &nbsp;
                                     <a data-toggle="modal" data-target="#exampleModal"
                                        style="cursor: -webkit-grabbing; cursor: grabbing;" id="info">
                                         <i class="fa fa-user-circle"></i>
@@ -73,7 +76,7 @@
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">User Info</h5>
+                        <h5 class="modal-title" id="exampleModalLabel"></h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -84,6 +87,22 @@
                 </div>
             </div>
         </div>
-        <script src="js/home.js"></script>
+        
+        <div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel2"></h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body" id="modal-content2">
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script src="js/home_bk.js"></script>
     </body>
 </html>

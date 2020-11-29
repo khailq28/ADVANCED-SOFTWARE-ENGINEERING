@@ -56,9 +56,6 @@ public class MainServlet extends HttpServlet {
         //check gift everyday
         DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
         Date dt = new Date();
-
-        obj.put("gift", oUser.getGiftdate());
-        obj.put("now", df.format(dt));
         
         if (oUser.getGiftdate().equals(df.format(dt))) {
             obj.put("giftdate", false);

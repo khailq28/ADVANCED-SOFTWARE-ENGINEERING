@@ -169,8 +169,8 @@ function handlePlay(event) {
         //trường hợp score > 21 hoặc số lá bài trên tay là 5
         if (currentPlayerScore > GAME_VALUE || iNumPlayerCard === 5) {
             //máy được xì bàng/xì dách -> máy thắng 
-            if (iNumPlayerCard === 2) {
-                if (checkBlackJack("computer") === 1 || checkBlackJack("computer") === 2)
+            if ((iNumComCard === 2 && checkBlackJack("computer") === 1)
+                    || (iNumComCard === 2 && checkBlackJack("computer") === 2)) {
                     showResult("Computer");
             } else {
                 const computerStandScore = 18;

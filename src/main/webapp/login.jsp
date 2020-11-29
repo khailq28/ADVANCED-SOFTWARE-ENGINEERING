@@ -6,8 +6,8 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
-    if (session.getAttribute("login" + session.getAttribute("id")) == null) {
+    if (session.getAttribute("login") == null) {
         session.setAttribute("message", "You are not logged in");
-        response.sendRedirect("index.jsp");
+        response.sendRedirect("/gameCard");
     }
 %>

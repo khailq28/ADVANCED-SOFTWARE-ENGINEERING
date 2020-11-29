@@ -13,7 +13,6 @@ $(document).ready(function () {
         },
         dataType: "json",
         success: function (aData) {
-            console.log(aData);
             let sHtmlRanking = `<li class="titleRank">Ranking list</li>`;
             for (let i = 1; i <= 6; i++) {
                 let sClass = "userRank" + i;
@@ -72,6 +71,7 @@ $(document).ready(function () {
             $("#mylv").html(sHtmlLv);
             $("#myexp").html(sHtmlExp);
             $("#modal-content").html(sHtmlModalContent);
+            $("#exampleModalLabel").html("User Info");
 
             if (aData.giftdate) {
                 let sHtmlGift = `<img id="received" src="images/gift.png">`;
@@ -114,5 +114,29 @@ $(document).ready(function () {
         complete: function () {
             $("#loading").css("display", "none");
         }
+    });
+    
+    $("#gameInfo").click(function () {
+        let sHtmlModalContent = `
+                <div class="container">
+                    <strong>1. Điểm danh hằng ngày: </strong>Số tiền nhận được của mỗi
+                    ngày sẽ phụ thuộc vào cấp độ của người chơi<br>
+                    Lv 1 - 10: 100 coins<br>
+                    Lv 10 - 20: 300 coins<br>
+                    Lv 20 - 40: 500 coins<br>
+                    Lv 40 - 60: 700 coins<br>
+                    Lv 60 trở lên: 1000 coins<br>
+                    <strong>2. Quy luật chơi:</strong><br>
+                    - Số tiền cược: tiền cược sẽ được nhân 2 nếu bạn được xì bàng.<br>
+                    - Trận thắng sẽ được 25 exp, trận thua và hòa sẽ nhận được 10 exp.
+                     Cứ đủ 100 exp thì sẽ được lên 1 cấp.
+                    - Cách tính điểm trường hợp đặc biệt:<br>
+                    xì bàng > xì dách > ngũ linh<br>
+                    <strong>3. Minigame: </strong> minigame ở đây là game lật bài
+                    người chơi sẽ tìm 5 cặp lá bài giống nhau. Hoàn thành bạn sẽ
+                    nhận được 50 coins<br>
+                </div>`;
+        $("#exampleModalLabel2").html("Thông tin game");
+        $("#modal-content2").html(sHtmlModalContent); 
     });
 });

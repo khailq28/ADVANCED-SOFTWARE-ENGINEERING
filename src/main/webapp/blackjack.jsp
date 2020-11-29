@@ -19,7 +19,7 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     </head>
     <body>
-        <script src="js/blackjack.js"></script>
+        <script src="js/blackjack_bk.js"></script>
         <div id="loading" style="display: none;">
             <i class="fa fa-spinner fa-3x fa-spin"></i>
         </div>
